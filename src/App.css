@@ -31,3 +31,11 @@ input {
 .todo-container .col-2 {
   text-align: left;
 }
+
+.message {
+  color: blue;
+  font-size: 30px;
+  margin-top: 50px;
+  font-weight: 600;
+  text-align: center;
+}
