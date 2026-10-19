@@ -1,20 +1,26 @@
 import TodoItem from "./TodoItem";
 
-const TodoItems = ({ todoItems, onDeleteClick }) => {
+const TodoItems = ({ todoItems, onDeleteClick, onCompleteClick }) => {
+  const sortedTodoItems = [...todoItems].sort(
+    (first, second) => Number(Boolean(first.completed)) - Number(Boolean(second.completed)),
+  );
+
   return (
-    <div className="items-container">
-      {todoItems.map((items) => {
+    <ul className="space-y-3">
+      {sortedTodoItems.map((items) => {
         return (
           <TodoItem
             key={items.id}
             id={items.id}
             todoName={items.name}
             todoDate={items.dueDate}
+            completed={items.completed}
             onDeleteClick={onDeleteClick}
+            onCompleteClick={onCompleteClick}
           />
         );
       })}
-    </div>
+    </ul>
   );
 };
 

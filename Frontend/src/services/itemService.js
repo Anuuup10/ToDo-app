@@ -17,12 +17,12 @@ export const getItemFromServer = async () => {
 };
 
 export const markItemCompletedOnServer = async (id) => {
-  const response = await fetch(
-    `http://localhost:3000/api/todo/${id}/completed`,
-    {
-      method: "PUT",
-    },
-  );
+  const response = await fetch(`http://localhost:3000/api/todo/${id}/completed`, {
+    method: "PUT",
+  });
+  if (!response.ok) {
+    throw new Error(`Could not mark todo ${id} as completed (${response.status})`);
+  }
   const item = await response.json();
   return mapServerItemToLocalItem(item);
 };
@@ -43,5 +43,6 @@ const mapServerItemToLocalItem = (serverItem) => {
     name: serverItem.task,
     dueDate: serverItem.date,
     createdAt: serverItem.createdAt,
+    completed: Boolean(serverItem.completed),
   };
 };
